@@ -13,11 +13,7 @@ contract WKARRAT is IWKARRAT {
     mapping(address => mapping(address => uint256)) public allowance;
 
     event Transfer(address indexed from, address indexed to, uint256 value);
-    event Approval(
-        address indexed owner,
-        address indexed spender,
-        uint256 value
-    );
+    event Approval(address indexed owner, address indexed spender, uint256 value);
     event Deposit(address indexed account, uint256 amount);
     event Withdrawal(address indexed account, uint256 amount);
 
@@ -30,10 +26,7 @@ contract WKARRAT is IWKARRAT {
 
     /// @inheritdoc IERC20
     function withdraw(uint256 amount) public {
-        require(
-            balanceOf[msg.sender] >= amount,
-            "WKARRAT: insufficient balance"
-        );
+        require(balanceOf[msg.sender] >= amount, "WKARRAT: insufficient balance");
         balanceOf[msg.sender] -= amount;
         payable(msg.sender).transfer(amount);
         emit Withdrawal(msg.sender, amount);
@@ -53,10 +46,7 @@ contract WKARRAT is IWKARRAT {
     /// @inheritdoc IERC20
     function transfer(address to, uint256 value) public returns (bool) {
         require(to != address(0), "WKARRAT: transfer to zero address");
-        require(
-            balanceOf[msg.sender] >= value,
-            "WKARRAT: insufficient balance"
-        );
+        require(balanceOf[msg.sender] >= value, "WKARRAT: insufficient balance");
 
         balanceOf[msg.sender] -= value;
         balanceOf[to] += value;
@@ -72,17 +62,10 @@ contract WKARRAT is IWKARRAT {
     }
 
     /// @inheritdoc IERC20
-    function transferFrom(
-        address from,
-        address to,
-        uint256 value
-    ) public returns (bool) {
+    function transferFrom(address from, address to, uint256 value) public returns (bool) {
         require(to != address(0), "WKARRAT: transfer to zero address");
         require(balanceOf[from] >= value, "WKARRAT: insufficient balance");
-        require(
-            allowance[from][msg.sender] >= value,
-            "WKARRAT: insufficient allowance"
-        );
+        require(allowance[from][msg.sender] >= value, "WKARRAT: insufficient allowance");
 
         balanceOf[from] -= value;
         allowance[from][msg.sender] -= value;

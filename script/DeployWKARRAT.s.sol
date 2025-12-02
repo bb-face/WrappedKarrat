@@ -7,15 +7,15 @@ import "../src/WKARRAT.sol";
 contract DeployWKARRAT is Script {
     function run() external returns (WKARRAT) {
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
-        
+
         vm.startBroadcast(deployerPrivateKey);
-        
+
         WKARRAT wkarrat = new WKARRAT();
-        
+
         vm.stopBroadcast();
-        
+
         console.log("WKARRAT deployed at:", address(wkarrat));
-        
+
         return wkarrat;
     }
 }

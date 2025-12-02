@@ -41,7 +41,7 @@ contract WKARRATTest is Test {
         vm.startPrank(alice);
 
         uint256 depositAmount = 5 ether;
-        (bool success, ) = address(wkarrat).call{value: depositAmount}("");
+        (bool success,) = address(wkarrat).call{value: depositAmount}("");
         assertTrue(success);
 
         assertEq(wkarrat.balanceOf(alice), depositAmount);
